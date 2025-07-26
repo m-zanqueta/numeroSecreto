@@ -1,3 +1,7 @@
+let tentativas;
+let numeroSecreto;
+let numerosJogados = [];
+let max = 2;
 
 function exibirTexto(tag, texto){
     let campo = document.querySelector(tag);
@@ -20,6 +24,9 @@ function verificarChute(){
         exibirTexto('p', `Você descobriu o número secreto com ${tentativas} ${palavraTentativa}!`);
     
         document.getElementById('reiniciar').removeAttribute('disabled');
+
+        numerosJogados = numerosJogados.length == max ? [] : numerosJogados;
+
     } else {
         if (chute < numeroSecreto){
             exibirTexto('p', `O número secreto é maior do que ${chute}!`);
@@ -32,7 +39,14 @@ function verificarChute(){
 }
 
 function gerarNumeroAleatorio(){
-    return parseInt(Math.random() * 100 + 1);
+    let numeroEscolhido = parseInt(Math.random() * max + 1);
+    if (numerosJogados.includes(numeroEscolhido)){
+        return gerarNumeroAleatorio();
+    } else {
+        numerosJogados.push(numeroEscolhido);
+        console.log(numerosJogados);    
+        return numeroEscolhido;
+    }
 }
 
 function iniciarJogo(){
@@ -40,11 +54,10 @@ function iniciarJogo(){
     limparCampo()
     tentativas = 0;
     exibirTexto('h1', 'Jogo do Número Secreto!');
-    exibirTexto('p', 'Digite um número de 1 a 100');
+    exibirTexto('p', `Digite um número de 1 a ${max}`);
     console.log(numeroSecreto);
     document.getElementById('reiniciar').setAttribute('disable', true);
 }
 
-let tentativas;
-let numeroSecreto;
+
 iniciarJogo();
