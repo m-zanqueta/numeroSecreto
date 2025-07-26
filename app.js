@@ -1,11 +1,19 @@
 let tentativas;
 let numeroSecreto;
 let numerosJogados = [];
-let max = 2;
+let max = 100;
 
 function exibirTexto(tag, texto){
     let campo = document.querySelector(tag);
     campo.innerHTML = texto;
+     if ('speechSynthesis' in window) {
+        let utterance = new SpeechSynthesisUtterance(texto);
+        utterance.lang = 'pt-BR'; 
+        utterance.rate = 1.2; 
+        window.speechSynthesis.speak(utterance); 
+    } else {
+        console.log("Web Speech API não suportada neste navegador.");
+    }
 }
 
 function limparCampo(){
@@ -53,7 +61,7 @@ function iniciarJogo(){
     numeroSecreto = gerarNumeroAleatorio();
     limparCampo()
     tentativas = 0;
-    exibirTexto('h1', 'Jogo do Número Secreto!');
+    exibirTexto('h1', 'Jogo - Número Secreto!');
     exibirTexto('p', `Digite um número de 1 a ${max}`);
     console.log(numeroSecreto);
     document.getElementById('reiniciar').setAttribute('disable', true);
