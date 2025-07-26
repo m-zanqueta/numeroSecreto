@@ -4,7 +4,8 @@ function exibirTexto(tag, texto){
 }
 
 function verificarChute(){
-    console.log(numeroSecreto);
+    let chute = document.querySelector('input').value;
+    console.log(chute == numeroSecreto ? "iguais" : "diferentes");
 }
 
 function gerarNumeroAleatorio(){
@@ -17,3 +18,4 @@ exibirTexto('p', 'Digite um número de 1 a 100');
 
 let numeroSecreto = gerarNumeroAleatorio();
 
+console.log(numeroSecreto);
